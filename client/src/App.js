@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/Login";
 import "./styles.scss";
 import BubblePage from './components/BubblePage'
 import ProtectedRoute from './ProtectedRoute';
+import ColorList from "./components/ColorList";
 
 
 

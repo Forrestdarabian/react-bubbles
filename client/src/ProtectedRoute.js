@@ -7,7 +7,7 @@ const ProtectedRoute = ({ ...rest}) => {
       if (localStorage.getItem('token')) {
         return <BubblePage {...props} />;
       } else {
-        return <Redirect to="/login"/>;
+        return <Redirect to="/"/>;
       }
     }}/>;
 }

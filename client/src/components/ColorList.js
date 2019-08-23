@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axiosWithAuth from "axios";
-import BubblePage from './BubblePage'
+
 
 const initialColor = {
-  color: "blue",
-  code: { hex: "123" }
+  color: "",
+  code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ props, colors, updateColors }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -25,10 +25,10 @@ const ColorList = ({ colors, updateColors }) => {
   
 
   const editColors = color => {
-    axiosWithAuth().put(`http://localhost:5000/api/colors/:id`, color)
+    axiosWithAuth().put(`http://localhost:5000/api/colors/${props.match.params.id}`, color)
       .then(res => {
         updateColors(res.data);
-        // props.history.push("/colors");
+        props.history.push("/colors");
       })
       .catch(err => console.log(err.response));
   };
@@ -42,18 +42,19 @@ const ColorList = ({ colors, updateColors }) => {
     // make a delete request to delete this color
   
   const deleteColors = id => {
-    axiosWithAuth().delete(`http://localhost:5000/api/colors/123`)
+    axiosWithAuth().delete(`http://localhost:5000/api/colors/${props.match.params.id}`)
       .then(res => updateColors(res.data))
       .catch(err => console.log(err.response));
   };
   };
 
+  
 
   return (
     <div className="colors-wrap">
       <p>colors</p>
       <ul>
-        {colors.map(color => (
+       {colors && colors.map(color => (
           <li key={color.color} onClick={() => editColor(color)}>
             <span>
               <span className="delete" onClick={() => deleteColor(color)}>

@@ -38,7 +38,7 @@ Store private info in your package.json
 
 - [ ] Describe how web servers work.
 
-The user must request access py putting in specific credentials such as their username and password to get access to the site.
+The user must request access py putting in specific credentials such as their username and password to get access to the site. As well as host data for requests to send back and forth.
 
 - [ ] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
 
