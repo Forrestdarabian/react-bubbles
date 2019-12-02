@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosWithAuth from "axios";
+
 
 const initialColor = {
   color: "",
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ props, colors, updateColors }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -21,17 +22,39 @@ const ColorList = ({ colors, updateColors }) => {
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+  
+
+  const editColors = color => {
+    axiosWithAuth().put(`http://localhost:5000/api/colors/${props.match.params.id}`, color)
+      .then(res => {
+        updateColors(res.data);
+        props.history.push("/colors");
+      })
+      .catch(err => console.log(err.response));
   };
+  };
+
+
+
+
 
   const deleteColor = color => {
     // make a delete request to delete this color
+  
+  const deleteColors = id => {
+    axiosWithAuth().delete(`http://localhost:5000/api/colors/${props.match.params.id}`)
+      .then(res => updateColors(res.data))
+      .catch(err => console.log(err.response));
   };
+  };
+
+  
 
   return (
     <div className="colors-wrap">
       <p>colors</p>
       <ul>
-        {colors.map(color => (
+       {colors && colors.map(color => (
           <li key={color.color} onClick={() => editColor(color)}>
             <span>
               <span className="delete" onClick={() => deleteColor(color)}>
